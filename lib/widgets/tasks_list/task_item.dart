@@ -24,7 +24,7 @@ class TaskItem extends StatelessWidget {
           color: Colors.yellow,
           borderRadius: BorderRadius.all(
             Radius.circular(
-              10,
+              20,
             ),
           ),
         ),

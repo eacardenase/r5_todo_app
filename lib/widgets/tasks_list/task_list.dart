@@ -36,17 +36,39 @@ class TaskList extends StatelessWidget {
 
             return true;
           },
-          background: Container(
-            padding: const EdgeInsets.only(left: 10),
-            color: Colors.green.shade300,
-            alignment: Alignment.centerLeft,
-            child: const Icon(Icons.check),
+          background: Padding(
+            padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
+            child: Container(
+              padding: const EdgeInsets.only(left: 20),
+              decoration: BoxDecoration(
+                color: Colors.green.shade300,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+              ),
+              alignment: Alignment.centerLeft,
+              child: const Icon(Icons.check),
+            ),
           ),
-          secondaryBackground: Container(
-            padding: const EdgeInsets.only(right: 20),
-            color: Colors.red.shade300,
-            alignment: Alignment.centerRight,
-            child: const Icon(Icons.delete),
+          secondaryBackground: Padding(
+            padding: const EdgeInsets.only(top: 25, right: 25, left: 25),
+            child: Container(
+              padding: const EdgeInsets.only(right: 20),
+              decoration: BoxDecoration(
+                color: Colors.red.shade300,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+              ),
+              alignment: Alignment.centerRight,
+              child: const Icon(Icons.delete),
+            ),
           ),
           child: TaskItem(
             task,
