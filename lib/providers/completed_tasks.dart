@@ -45,7 +45,7 @@ class CompletedTasksNotifier extends StateNotifier<List<Task>> {
   }
 }
 
-final completedMealsProvider =
+final completedTasksProvider =
     StateNotifierProvider<CompletedTasksNotifier, List<Task>>((ref) {
   return CompletedTasksNotifier();
 });
