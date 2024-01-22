@@ -1,11 +1,16 @@
-class Task {
-  Task({
-    required this.name,
-    required this.completed,
-    required this.date,
-  });
+import 'package:intl/intl.dart';
 
+final dateFormatter = DateFormat.yMd();
+
+class Task {
+  Task({required this.id, required this.name, this.completed = false});
+
+  final String id;
   final String name;
-  bool completed;
-  final DateTime date;
+  final bool completed;
+  final DateTime date = DateTime.now();
+
+  String get formattedDate {
+    return dateFormatter.format(date);
+  }
 }
