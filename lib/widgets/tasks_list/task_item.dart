@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:r5_todo_app/models/task.dart';
 
-class TaskItem extends StatelessWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:r5_todo_app/models/task.dart';
+import 'package:r5_todo_app/providers/completed_tasks.dart';
+
+class TaskItem extends ConsumerStatefulWidget {
   const TaskItem(
     this.task, {
     super.key,
-    required this.onChanged,
   });
 
   final Task task;
-  final void Function(bool?)? onChanged;
 
+  @override
+  ConsumerState<TaskItem> createState() => _TaskItemState();
+}
+
+class _TaskItemState extends ConsumerState<TaskItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,14 +38,18 @@ class TaskItem extends StatelessWidget {
         child: Row(
           children: [
             Checkbox(
-              value: task.completed,
-              onChanged: onChanged,
+              value: widget.task.completed,
+              onChanged: (_) {
+                ref
+                    .watch(completedTasksProvider.notifier)
+                    .toggleComplete(widget.task.id);
+              },
             ),
             Text(
-              task.name,
+              widget.task.name,
               style: TextStyle(
                 fontSize: 18,
-                decoration: task.completed
+                decoration: widget.task.completed
                     ? TextDecoration.lineThrough
                     : TextDecoration.none,
               ),

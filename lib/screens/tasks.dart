@@ -20,12 +20,6 @@ class TasksScreen extends ConsumerStatefulWidget {
 class _TasksScreenState extends ConsumerState<TasksScreen> {
   final _controller = TextEditingController();
 
-  void _checkboxChanged(bool? value, Task task) {
-    setState(() {
-      // task.completed = value ?? false;
-    });
-  }
-
   void _saveNewTask() {
     ref.watch(completedTasksProvider.notifier).add(_controller.text);
 
@@ -42,12 +36,6 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
             onCancel: () => Navigator.of(context).pop(),
           );
         });
-  }
-
-  void _removeTask(int index, Task task) {
-    setState(() {
-      // _registeredTasks.remove(task);
-    });
   }
 
   @override
@@ -76,8 +64,6 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
       ),
       body: TaskList(
         tasks: tasks,
-        onChanged: (value) => _checkboxChanged,
-        onRemoveTask: _removeTask,
       ),
     );
   }

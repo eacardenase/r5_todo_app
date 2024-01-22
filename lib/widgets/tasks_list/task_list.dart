@@ -1,38 +1,44 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:r5_todo_app/models/task.dart';
+import 'package:r5_todo_app/providers/completed_tasks.dart';
 import 'package:r5_todo_app/widgets/tasks_list/task_item.dart';
 
-class TaskList extends StatelessWidget {
+class TaskList extends ConsumerStatefulWidget {
   const TaskList({
     super.key,
     required this.tasks,
-    required this.onChanged,
-    required this.onRemoveTask,
   });
 
   final List<Task> tasks;
-  final void Function(bool?)? onChanged;
-  final void Function(int index, Task task) onRemoveTask;
 
+  @override
+  ConsumerState<TaskList> createState() => _TaskListState();
+}
+
+class _TaskListState extends ConsumerState<TaskList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: tasks.length,
+      itemCount: widget.tasks.length,
       itemBuilder: (context, index) {
-        final task = tasks[index];
+        final task = widget.tasks[index];
 
         return Dismissible(
-          key: ValueKey(task),
+          key: ValueKey(task.id),
           direction: DismissDirection.horizontal,
           confirmDismiss: (direction) async {
             if (direction == DismissDirection.startToEnd) {
-              print("Update Task");
+              ref
+                  .watch(completedTasksProvider.notifier)
+                  .toggleComplete(task.id);
 
               return false;
             }
 
-            onRemoveTask(index, task);
+            ref.watch(completedTasksProvider.notifier).remove(task);
 
             return true;
           },
@@ -72,7 +78,6 @@ class TaskList extends StatelessWidget {
           ),
           child: TaskItem(
             task,
-            onChanged: onChanged,
           ),
         );
       },
