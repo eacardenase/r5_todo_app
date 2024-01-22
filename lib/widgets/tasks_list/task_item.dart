@@ -36,6 +36,7 @@ class _TaskItemState extends ConsumerState<TaskItem> {
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Checkbox(
               value: widget.task.completed,
@@ -45,14 +46,22 @@ class _TaskItemState extends ConsumerState<TaskItem> {
                     .toggleComplete(widget.task.id);
               },
             ),
-            Text(
-              widget.task.name,
-              style: TextStyle(
-                fontSize: 18,
-                decoration: widget.task.completed
-                    ? TextDecoration.lineThrough
-                    : TextDecoration.none,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  widget.task.name,
+                  style: TextStyle(
+                    fontSize: 18,
+                    decoration: widget.task.completed
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                  ),
+                ),
+                Text(
+                  widget.task.formattedDate,
+                )
+              ],
             )
           ],
         ),
