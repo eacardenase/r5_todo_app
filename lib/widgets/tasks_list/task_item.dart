@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:r5_todo_app/models/task.dart';
-import 'package:r5_todo_app/providers/completed_tasks.dart';
+import 'package:r5_todo_app/providers/task/task_provider.dart';
 
 class TaskItem extends ConsumerStatefulWidget {
   const TaskItem(
@@ -41,7 +41,7 @@ class _TaskItemState extends ConsumerState<TaskItem> {
               value: widget.task.completed,
               onChanged: (_) {
                 ref
-                    .watch(completedTasksProvider.notifier)
+                    .watch(tasksProvider.notifier)
                     .toggleComplete(widget.task.id);
               },
             ),

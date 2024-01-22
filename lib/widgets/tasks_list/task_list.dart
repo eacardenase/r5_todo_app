@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:r5_todo_app/models/task.dart';
-import 'package:r5_todo_app/providers/completed_tasks.dart';
+import 'package:r5_todo_app/providers/task/task_provider.dart';
 import 'package:r5_todo_app/widgets/tasks_list/task_item.dart';
 
 class TaskList extends ConsumerStatefulWidget {
@@ -31,14 +31,12 @@ class _TaskListState extends ConsumerState<TaskList> {
           direction: DismissDirection.horizontal,
           confirmDismiss: (direction) async {
             if (direction == DismissDirection.startToEnd) {
-              ref
-                  .watch(completedTasksProvider.notifier)
-                  .toggleComplete(task.id);
+              ref.watch(tasksProvider.notifier).toggleComplete(task.id);
 
               return false;
             }
 
-            ref.watch(completedTasksProvider.notifier).remove(task);
+            ref.watch(tasksProvider.notifier).remove(task);
 
             return true;
           },

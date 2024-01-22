@@ -6,12 +6,13 @@ import 'package:r5_todo_app/models/task.dart';
 
 const _uuid = Uuid();
 
-class CompletedTasksNotifier extends StateNotifier<List<Task>> {
-  CompletedTasksNotifier()
+class TasksNotifier extends StateNotifier<List<Task>> {
+  TasksNotifier()
       : super([
           Task(
             id: _uuid.v4(),
             name: "Make Coffee",
+            completed: true,
           ),
           Task(
             id: _uuid.v4(),
@@ -44,8 +45,3 @@ class CompletedTasksNotifier extends StateNotifier<List<Task>> {
     ];
   }
 }
-
-final completedTasksProvider =
-    StateNotifierProvider<CompletedTasksNotifier, List<Task>>((ref) {
-  return CompletedTasksNotifier();
-});
