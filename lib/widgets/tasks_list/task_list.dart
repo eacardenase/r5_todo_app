@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:r5_todo_app/models/task.dart';
 import 'package:r5_todo_app/providers/task/task_provider.dart';
+import 'package:r5_todo_app/services/firestore.dart';
 import 'package:r5_todo_app/widgets/tasks_list/task_item.dart';
 
 class TaskList extends ConsumerStatefulWidget {
@@ -12,31 +14,46 @@ class TaskList extends ConsumerStatefulWidget {
     required this.tasks,
   });
 
-  final List<Task> tasks;
+  final List<QueryDocumentSnapshot> tasks;
 
   @override
   ConsumerState<TaskList> createState() => _TaskListState();
 }
 
 class _TaskListState extends ConsumerState<TaskList> {
+  final FirestoreService firestoreService = FirestoreService();
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: widget.tasks.length,
       itemBuilder: (context, index) {
-        final task = widget.tasks[index];
+        DocumentSnapshot document = widget.tasks[index];
+        String docId = document.id;
+
+        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+
+        String taskName = data['name'];
+        bool taskCompleted = data['completed'];
+
+        final task = Task(
+          name: taskName,
+          completed: taskCompleted,
+        );
+
+        task.id = docId;
 
         return Dismissible(
-          key: ValueKey(task.id),
+          key: ValueKey(docId),
           direction: DismissDirection.horizontal,
           confirmDismiss: (direction) async {
             if (direction == DismissDirection.startToEnd) {
-              ref.watch(tasksProvider.notifier).toggleComplete(task.id);
+              ref.watch(tasksProvider.notifier).toggleComplete(docId);
 
               return false;
             }
 
-            ref.watch(tasksProvider.notifier).remove(task);
+            ref.watch(tasksProvider.notifier).remove(docId);
 
             return true;
           },

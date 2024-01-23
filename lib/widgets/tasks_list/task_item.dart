@@ -43,7 +43,7 @@ class _TaskItemState extends ConsumerState<TaskItem> {
               onChanged: (_) {
                 ref
                     .watch(tasksProvider.notifier)
-                    .toggleComplete(widget.task.id);
+                    .toggleComplete(widget.task.id!);
               },
             ),
             Column(

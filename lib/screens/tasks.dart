@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:r5_todo_app/providers/task/task_provider.dart';
+import 'package:r5_todo_app/services/firestore.dart';
 import 'package:r5_todo_app/widgets/new_task/dialog_box.dart';
 import 'package:r5_todo_app/widgets/tasks_list/task_list.dart';
 
@@ -36,7 +37,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final tasks = ref.watch(tasksProvider);
+    final FirestoreService firestoreService = FirestoreService();
 
     return Scaffold(
       backgroundColor: Colors.yellow.shade200,
@@ -58,8 +59,29 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
         shape: const CircleBorder(),
         child: const Icon(Icons.add),
       ),
-      body: TaskList(
-        tasks: tasks,
+      body: StreamBuilder(
+        stream: firestoreService.getTasksStream(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text(
+                'Something went wrong.',
+              ),
+            );
+          }
+
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return const Center(
+              child: Text(
+                'No messages found.',
+              ),
+            );
+          }
+
+          final loadedTasks = snapshot.data!.docs;
+
+          return TaskList(tasks: loadedTasks);
+        },
       ),
     );
   }

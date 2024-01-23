@@ -3,9 +3,12 @@ import 'package:intl/intl.dart';
 final dateFormatter = DateFormat.yMd();
 
 class Task {
-  Task({required this.id, required this.name, this.completed = false});
+  Task({
+    required this.name,
+    this.completed = false,
+  });
 
-  final String id;
+  String? id;
   final String name;
   final bool completed;
   final DateTime date = DateTime.now();
