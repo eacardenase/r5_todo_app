@@ -20,6 +20,8 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
   void _saveNewTask() {
     ref.watch(tasksProvider.notifier).add(_controller.text);
 
+    _controller.clear();
+
     Navigator.of(context).pop();
   }
 

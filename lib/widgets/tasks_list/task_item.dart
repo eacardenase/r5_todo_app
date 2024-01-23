@@ -20,9 +20,6 @@ class TaskItem extends ConsumerStatefulWidget {
 class _TaskItemState extends ConsumerState<TaskItem> {
   @override
   Widget build(BuildContext context) {
-    print("Task Translation:");
-    print(widget.task.translation);
-
     return Padding(
       padding: const EdgeInsets.only(top: 25, right: 25, bottom: 0, left: 25),
       child: Container(
@@ -63,6 +60,12 @@ class _TaskItemState extends ConsumerState<TaskItem> {
                 ),
                 Text(
                   widget.task.formattedDate,
+                ),
+                Text(
+                  widget.task.translation,
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
                 )
               ],
             )
