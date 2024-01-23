@@ -73,7 +73,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return const Center(
               child: Text(
-                'No messages found.',
+                'No tasks found.',
               ),
             );
           }

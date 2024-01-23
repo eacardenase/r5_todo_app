@@ -11,6 +11,7 @@ class FirestoreService {
   Future<void> addTask(Task task) {
     return tasks.add({
       "name": task.name,
+      "translation": "",
       "date": task.date,
       "completed": task.completed,
     });
@@ -31,12 +32,9 @@ class FirestoreService {
     return tasks.doc(taskId).delete();
   }
 
-  // Read
   Stream<QuerySnapshot> getTasksStream() {
     final tasksStream = tasks.orderBy('date', descending: true).snapshots();
 
     return tasksStream;
   }
-
-  // Delete
 }

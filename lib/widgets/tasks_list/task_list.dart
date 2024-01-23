@@ -34,6 +34,7 @@ class _TaskListState extends ConsumerState<TaskList> {
         Map<String, dynamic> data = document.data() as Map<String, dynamic>;
 
         String taskName = data['name'];
+        String taskTranslation = data['translation'];
         bool taskCompleted = data['completed'];
 
         final task = Task(
@@ -42,6 +43,7 @@ class _TaskListState extends ConsumerState<TaskList> {
         );
 
         task.id = docId;
+        task.translation = taskTranslation;
 
         return Dismissible(
           key: ValueKey(docId),
