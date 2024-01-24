@@ -38,15 +38,17 @@ class _LoginFormState extends State<LoginForm> {
         _enteredPassword,
       );
     } on FirebaseAuthException catch (error) {
-      if (error.code == 'user-not-found') {
-        // ...
+      String errorMessage = 'Authentication error';
+
+      if (error.code == "INVALID_LOGIN_CREDENTIALS") {
+        errorMessage = "Invalid credentials";
       }
 
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            error.message ?? 'Authentication error',
+            errorMessage,
           ),
         ),
       );
