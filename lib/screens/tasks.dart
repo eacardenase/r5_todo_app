@@ -53,6 +53,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
             color: Colors.grey.shade700,
           ),
         ),
+        centerTitle: true,
         backgroundColor: Colors.yellow,
         elevation: 0,
         actions: [
