@@ -42,8 +42,6 @@ class _SignUpFormState extends State<SignUpForm> {
         _enteredPassword,
       );
 
-      print(_enteredUserName);
-
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredentials.user!.uid)
@@ -52,10 +50,6 @@ class _SignUpFormState extends State<SignUpForm> {
         'email': _enteredEmail,
       });
     } on FirebaseAuthException catch (error) {
-      if (error.code == 'email-already-in-use') {
-        // Handle error...
-      }
-
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

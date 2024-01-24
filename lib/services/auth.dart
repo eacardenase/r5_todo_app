@@ -19,8 +19,8 @@ class AuthService {
         email: email, password: password);
   }
 
-  static Future<void> signOut() {
-    return _authInstance.signOut();
+  static Future<void> signOut() async {
+    return await _authInstance.signOut();
   }
 
   static String? getCurrentUserId() {
