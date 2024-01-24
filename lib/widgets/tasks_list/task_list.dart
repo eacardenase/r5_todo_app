@@ -33,12 +33,12 @@ class _TaskListState extends ConsumerState<TaskList> {
 
         Map<String, dynamic> data = document.data() as Map<String, dynamic>;
 
-        String taskName = data['name'];
+        String taskTitle = data['title'];
         String taskTranslation = data['translation'];
         bool taskCompleted = data['completed'];
 
         final task = Task(
-          name: taskName,
+          title: taskTitle,
           completed: taskCompleted,
         );
 

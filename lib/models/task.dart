@@ -4,13 +4,13 @@ final dateFormatter = DateFormat.yMd();
 
 class Task {
   Task({
-    required this.name,
-    this.translation = "",
+    required this.title,
+    this.translation = "...",
     this.completed = false,
   });
 
   String? id;
-  final String name;
+  final String title;
   String translation;
   final bool completed;
   final DateTime date = DateTime.now();

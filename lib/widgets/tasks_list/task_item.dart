@@ -50,7 +50,7 @@ class _TaskItemState extends ConsumerState<TaskItem> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  widget.task.name,
+                  widget.task.title,
                   style: TextStyle(
                     fontSize: 18,
                     decoration: widget.task.completed

@@ -10,8 +10,8 @@ class FirestoreService {
   // Create
   Future<void> addTask(Task task) {
     return tasks.add({
-      "name": task.name,
-      "translation": "",
+      "title": task.title,
+      "translation": task.translation,
       "date": task.date,
       "completed": task.completed,
     });

@@ -17,14 +17,14 @@ export const translateTask = functions.firestore
     const newTask = snapshot.data();
     const taskId = snapshot.id;
 
-    const taskName = newTask["name"] as string;
+    const taskTitle = newTask["title"] as string;
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
-          content: `Traduce el siguiente texto al idioma inglés: ${taskName}`,
+          content: `Traduce el siguiente texto al idioma inglés: ${taskTitle}`,
         },
       ],
       temperature: 0.2,

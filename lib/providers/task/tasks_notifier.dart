@@ -8,8 +8,8 @@ class TasksNotifier extends StateNotifier<List<Task>> {
 
   final FirestoreService firestoreService = FirestoreService();
 
-  void add(String taskName) {
-    final Task newTask = Task(name: taskName);
+  void add(String taskTitle) {
+    final Task newTask = Task(title: taskTitle);
 
     firestoreService.addTask(newTask);
   }
