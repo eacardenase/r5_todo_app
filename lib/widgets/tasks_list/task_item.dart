@@ -59,17 +59,17 @@ class _TaskItemState extends ConsumerState<TaskItem> {
                   ),
                 ),
                 Text(
+                  widget.task.translation,
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                Text(
                   "Traducido del español por OpenAI",
                   style: TextStyle(
                     color: Colors.grey.shade600,
                     fontStyle: FontStyle.italic,
                     fontSize: 12,
-                  ),
-                ),
-                Text(
-                  widget.task.translation,
-                  style: const TextStyle(
-                    fontSize: 18,
                   ),
                 ),
                 Text(
