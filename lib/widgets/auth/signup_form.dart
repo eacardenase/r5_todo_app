@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-final _firebase = FirebaseAuth.instance;
+import 'package:r5_todo_app/services/auth.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -38,9 +37,9 @@ class _SignUpFormState extends State<SignUpForm> {
     try {
       setState(() => _isLoading = true);
 
-      final userCredentials = await _firebase.createUserWithEmailAndPassword(
-        email: _enteredEmail,
-        password: _enteredPassword,
+      final userCredentials = await AuthService.createUserWithEmailAndPassword(
+        _enteredEmail,
+        _enteredPassword,
       );
 
       print(_enteredUserName);

@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:r5_todo_app/models/task.dart';
 import 'package:r5_todo_app/providers/task/task_provider.dart';
-import 'package:r5_todo_app/services/firestore.dart';
 import 'package:r5_todo_app/widgets/tasks_list/task_item.dart';
 
 class TaskList extends ConsumerStatefulWidget {
@@ -21,8 +20,6 @@ class TaskList extends ConsumerStatefulWidget {
 }
 
 class _TaskListState extends ConsumerState<TaskList> {
-  final FirestoreService firestoreService = FirestoreService();
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:r5_todo_app/providers/task/task_provider.dart';
-import 'package:r5_todo_app/services/firestore.dart';
+import 'package:r5_todo_app/services/auth.dart';
+import 'package:r5_todo_app/services/tasks.dart';
 import 'package:r5_todo_app/widgets/new_task/dialog_box.dart';
 import 'package:r5_todo_app/widgets/tasks_list/task_list.dart';
 
@@ -40,7 +40,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final FirestoreService firestoreService = FirestoreService();
+    final TasksService tasksService = TasksService();
 
     return Scaffold(
       backgroundColor: Colors.yellow.shade200,
@@ -58,7 +58,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: () => FirebaseAuth.instance.signOut(),
+            onPressed: () => AuthService.signOut(),
             icon: Icon(
               Icons.logout,
               color: Theme.of(context).colorScheme.primary,
@@ -73,7 +73,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
         child: const Icon(Icons.add),
       ),
       body: StreamBuilder(
-        stream: firestoreService.getTasksStream(),
+        stream: tasksService.getTasksStream(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Center(

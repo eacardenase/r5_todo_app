@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:r5_todo_app/services/auth.dart';
 
 import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
+        stream: AuthService.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const SplashScreen();

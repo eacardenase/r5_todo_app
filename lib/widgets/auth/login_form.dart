@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-
-final _firebase = FirebaseAuth.instance;
+import 'package:r5_todo_app/services/auth.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
@@ -34,9 +33,9 @@ class _LoginFormState extends State<LoginForm> {
     try {
       setState(() => _isLoading = true);
 
-      await _firebase.signInWithEmailAndPassword(
-        email: _enteredEmail,
-        password: _enteredPassword,
+      await AuthService.signInWithEmailAndPassword(
+        _enteredEmail,
+        _enteredPassword,
       );
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {

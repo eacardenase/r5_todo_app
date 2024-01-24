@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:r5_todo_app/models/task.dart';
+import 'package:r5_todo_app/services/auth.dart';
 
-final _firebase = FirebaseAuth.instance;
-
-class FirestoreService {
+class TasksService {
   // Get Tasks Collection
-  final String? userId = _firebase.currentUser?.uid;
+  final String? userId = AuthService.getCurrentUserId();
   final CollectionReference tasks =
       FirebaseFirestore.instance.collection("tasks");
 
