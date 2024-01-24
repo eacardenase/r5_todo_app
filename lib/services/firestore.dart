@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:r5_todo_app/models/task.dart';
 
+final _firebase = FirebaseAuth.instance;
+
 class FirestoreService {
   // Get Tasks Collection
+  final String? userId = _firebase.currentUser?.uid;
   final CollectionReference tasks =
       FirebaseFirestore.instance.collection("tasks");
 
@@ -14,6 +18,7 @@ class FirestoreService {
       "translation": task.translation,
       "date": task.date,
       "completed": task.completed,
+      "userId": userId
     });
   }
 
@@ -33,7 +38,10 @@ class FirestoreService {
   }
 
   Stream<QuerySnapshot> getTasksStream() {
-    final tasksStream = tasks.orderBy('date', descending: true).snapshots();
+    final tasksStream = tasks
+        .where("userId", isEqualTo: userId)
+        .orderBy('date', descending: true)
+        .snapshots();
 
     return tasksStream;
   }

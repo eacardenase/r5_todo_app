@@ -10,6 +10,7 @@ class Task {
   });
 
   String? id;
+  String? userId;
   final String title;
   String translation;
   final bool completed;

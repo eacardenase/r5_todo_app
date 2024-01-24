@@ -43,6 +43,8 @@ class _SignUpFormState extends State<SignUpForm> {
         password: _enteredPassword,
       );
 
+      print(_enteredUserName);
+
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredentials.user!.uid)
@@ -59,7 +61,7 @@ class _SignUpFormState extends State<SignUpForm> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            error.message ?? 'Authentication falied.',
+            error.message ?? 'Authentication failed.',
           ),
         ),
       );
