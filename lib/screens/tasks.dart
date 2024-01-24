@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:r5_todo_app/providers/task/task_provider.dart';
 import 'package:r5_todo_app/services/firestore.dart';
@@ -54,6 +55,15 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
         ),
         backgroundColor: Colors.yellow,
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () => FirebaseAuth.instance.signOut(),
+            icon: Icon(
+              Icons.logout,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _createNewTask,

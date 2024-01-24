@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:r5_todo_app/screens/tasks.dart';
+import 'package:r5_todo_app/screens/splash.dart';
+import 'package:r5_todo_app/screens/auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // required
@@ -34,7 +37,20 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.yellow,
         ),
       ),
-      home: const TasksScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const SplashScreen();
+          }
+
+          if (snapshot.hasData) {
+            return const TasksScreen();
+          }
+
+          return const AuthScreen();
+        },
+      ),
     );
   }
 }
